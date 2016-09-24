@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var User = require('./app/models/user');
+var jwt = require('jsonwebtoken');
 
 var app = express();
 
@@ -28,6 +29,41 @@ app.get('/', function(req, res) {
 // BEGIN api routes
 //
 var apiRouter = express.Router();
+
+apiRouter.post('/authenticate', function(req, res) {
+	User.findOne({
+		username: req.body.username
+	}).select('name username password').exec(function(err, user) {
+		if (err) {
+			throw err;
+		}
+		if (!user) {
+			res.json({
+				success: false,
+				message: 'Authentication failed. User not found.'
+			});
+		} else if (user) {
+			var validPassword = user.comparePassword(req.body.password);
+			if (!validPassword) {
+				res.json({
+					success: false,
+					message: 'Authentication failed. Wrong password'
+				});
+			} else {
+				var token = jwt.sign({
+					name: user.name,
+					username: user.username
+				}, 'shhhhh');
+
+				res.json({
+					success: true,
+					message: 'Enjoy your token',
+					token: token
+				});
+			}
+		}
+	});
+});
 
 apiRouter.use(function(req, res, next) {
 	console.log('Somebody just came to our app');
