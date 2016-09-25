@@ -4,6 +4,7 @@ var morgan = require('morgan');
 var mongoose = require('mongoose');
 var User = require('./app/models/user');
 var jwt = require('jsonwebtoken');
+var superSecret = 'superSecret';
 
 var app = express();
 
@@ -53,7 +54,8 @@ apiRouter.post('/authenticate', function(req, res) {
 				var token = jwt.sign({
 					name: user.name,
 					username: user.username
-				}, 'shhhhh');
+				}, superSecret, {expiresIn: 1800});
+				// include expiration of token
 
 				res.json({
 					success: true,
@@ -66,8 +68,33 @@ apiRouter.post('/authenticate', function(req, res) {
 });
 
 apiRouter.use(function(req, res, next) {
-	console.log('Somebody just came to our app');
-	next();
+	// flexible api - check for token in 3 different areas
+	var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+	
+	if (token) {
+		jwt.verify(token, superSecret, function(err, decoded) {
+			if (err) {
+				return res.status(403).send({
+					success: false,
+					message: 'Failed to authenticate token.'
+				});
+			} else {
+				req.decoded = decoded;
+				next();
+			}
+		});
+	} else {
+		return res.status(403).send({
+			success: false,
+			message: 'No token provided.'
+		});
+	}
+
+	// next();
+});
+
+apiRouter.get('/me', function(req, res) {
+	res.send(req.decoded);
 });
 
 apiRouter.route('/users')
