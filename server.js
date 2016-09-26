@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var User = require('./app/models/user');
 var jwt = require('jsonwebtoken');
 var superSecret = 'superSecret';
+var path = require('path');
 
 var app = express();
 
@@ -12,6 +13,8 @@ mongoose.connect('localhost:27017/sample');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.use(express.static(__dirname + '/public'));
 
 app.use(function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -21,6 +24,10 @@ app.use(function(req, res, next) {
 });
 
 app.use(morgan('dev'));
+
+app.get('*', function(req, res) {
+	res.sendFile(path.join(__dirname + '/public/index.html'));
+});
 
 app.get('/', function(req, res) {
 	res.send('Welcome to the home page!');
