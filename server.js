@@ -2,14 +2,15 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
+var config = require('./config');
 var User = require('./app/models/user');
 var jwt = require('jsonwebtoken');
-var superSecret = 'superSecret';
+// var superSecret = 'superSecret';
 var path = require('path');
 
 var app = express();
 
-mongoose.connect('localhost:27017/sample');
+mongoose.connect(config.database);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -61,7 +62,7 @@ apiRouter.post('/authenticate', function(req, res) {
 				var token = jwt.sign({
 					name: user.name,
 					username: user.username
-				}, superSecret, {expiresIn: 1800});
+				}, config.secret, {expiresIn: 1800});
 				// include expiration of token
 
 				res.json({
@@ -79,7 +80,7 @@ apiRouter.use(function(req, res, next) {
 	var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 	
 	if (token) {
-		jwt.verify(token, superSecret, function(err, decoded) {
+		jwt.verify(token, config.secret, function(err, decoded) {
 			if (err) {
 				return res.status(403).send({
 					success: false,
@@ -189,6 +190,6 @@ app.use('/api', apiRouter);
 // END api routes
 //
 
-app.listen(3000, function() {
-	console.log('Listening on port 3000.');
+app.listen(config.port, function() {
+	console.log('Listening on port ' + config.port);
 });
