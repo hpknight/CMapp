@@ -5,7 +5,7 @@ angular.module('authService', [])
 
 		// handle login
 		auth.login = function(username, password) {
-			return $http.post('/uapi/authenticate', {
+			return $http.post('/api/authenticate', {
 				username: username,
 				password: password
 			})
@@ -33,9 +33,9 @@ angular.module('authService', [])
 		// get the user info
 		auth.getUser = function() {
 			if (AuthToken.getToken()) {
-				return $http.get('/api/me');
+				return $http.get('/api/me', { cache: true });
 			} else {
-				$q.reject({ message: 'User has no token.' });
+				return $q.reject({ message: 'User has no token.' });
 			}
 		};
 
