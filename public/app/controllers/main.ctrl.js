@@ -24,12 +24,18 @@ angular.module('mainCtrl', [])
 		// function to handle login form
 		vm.doLogin = function() {
 			vm.processing = true;
+			vm.error = '';
 
 			// call the Auth.login() function
 			Auth.login(vm.loginData.username, vm.loginData.password)
 				.success(function(data) {
 					vm.processing = false;
-					$location.path('/users');
+
+					if (data.success) {
+						$location.path('/users');
+					} else {
+						vm.error = data.message;
+					}
 				});
 		};
 
