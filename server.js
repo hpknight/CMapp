@@ -30,7 +30,7 @@ mongoose.connect(config.database);
 app.use(express.static(__dirname + '/public'));
 
 // BEGIN api routes
-var apiRoutes = require('./app/routes/api.js');
+var apiRoutes = require('./app/routes/api.js')(app, express);
 app.use('/api', apiRoutes);
 // END api routes
 
