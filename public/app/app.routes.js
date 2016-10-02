@@ -1,20 +1,15 @@
-angular.module('routerRoutes', ['ngRoute'])
+angular.module('app.routes', ['ngRoute'])
 .config(function($routeProvider, $locationProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl: 'views/pages/home.html',
-			controller: 'homeCtrl',
-			controllerAs: 'home'
+			templateUrl: 'app/views/pages/home.html'
 		})
-		.when('/about', {
-			templateUrl: '/views/pages/about.html',
-			controller: 'aboutCtrl',
-			controllerAs: 'about'
-		})
-		.when('/contact', {
-			templateUrl: 'views/pages/contact.html',
-			controller: 'contactCtrl',
-			controllerAs: 'contact'
+		.when('/login', {
+			templateUrl: 'app/views/pages/login.html',
+			controller: 'mainCtrl',
+			controllerAs: 'login'
 		});
+
+		// get rid of the hash in the URL
 		$locationProvider.html5Mode(true);
 });
