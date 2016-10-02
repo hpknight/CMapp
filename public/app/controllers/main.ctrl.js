@@ -17,15 +17,18 @@ angular.module('mainCtrl', [])
 					}
 				})
 				.catch(function(err) {
-					console.log(err);
+					// console.log(err);
 				});
 		});
 
 		// function to handle login form
 		vm.doLogin = function() {
+			vm.processing = true;
+
 			// call the Auth.login() function
 			Auth.login(vm.loginData.username, vm.loginData.password)
 				.success(function(data) {
+					vm.processing = false;
 					$location.path('/users');
 				});
 		};
