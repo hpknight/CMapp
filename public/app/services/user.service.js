@@ -14,7 +14,7 @@ angular.module('userService', [])
 
 		// create a user
 		user.create = function(userData) {
-			return $http.post('/api/users/' + userData);
+			return $http.post('/api/users/', userData);
 		};
 
 		// update a user

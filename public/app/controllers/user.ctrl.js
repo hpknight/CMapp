@@ -22,4 +22,21 @@ angular.module('userCtrl', ['userService'])
 		};
 
 		vm.getAllUsers();
+	})
+	.controller('userCreateController', function(User) {
+		var vm = this;
+
+		vm.type = 'create';
+
+		vm.saveUser = function() {
+			vm.processing = true;
+			vm.message = '';
+
+			User.create(vm.userData)
+				.success(function(data) {
+					vm.processing = false;
+					vm.userData = {};
+					vm.message = data.message;
+				});
+		};
 	});
