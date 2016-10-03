@@ -46,6 +46,9 @@ angular.module('mainCtrl', [])
 			// reset all user info
 			vm.user = {};
 			$location.path('/login');
+
+			// to clear cache
+			window.location.reload(true);
 		};
 	});
 
