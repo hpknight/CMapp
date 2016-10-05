@@ -8,6 +8,16 @@
 	</h1>
 </div>
 
+<div class="row">
+	<div class="form-group">
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="user.search" placeholder="Search Users">
+		</div>
+	</div>
+</div>
+
+<br />
+
 <!-- Loading Message -->
 <div class="jumbotron text-center" ng-show="user.processing">
 	<span class="glyphicon glyphicon-repeat spinner"></span>
@@ -17,15 +27,13 @@
 <table class="table table-bordered table-striped" ng-show="user.users">
 	<thead>
 		<tr>
-			<th>_id</th>
 			<th>Name</th>
 			<th>Username</th>
 			<th class="col-sm-2"></th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="person in user.users">
-			<td>{{ person._id }}</td>
+		<tr ng-repeat="person in user.users | filter:user.search">
 			<td>{{ person.name }}</td>
 			<td>{{ person.username }}</td>
 			<td class="col-sm-2">
