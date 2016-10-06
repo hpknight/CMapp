@@ -29,6 +29,7 @@
 		<tr>
 			<th>Name</th>
 			<th>Username</th>
+			<th>Phone Number</th>
 			<th class="col-sm-2"></th>
 		</tr>
 	</thead>
@@ -36,6 +37,7 @@
 		<tr ng-repeat="person in user.users | filter:user.search">
 			<td>{{ person.name }}</td>
 			<td>{{ person.username }}</td>
+			<td>{{ person.phoneNumber }}</td>
 			<td class="col-sm-2">
 				<a href="/users/{{ person._id }}" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
 				<a href="#" ng-click="user.deleteUser(person._id)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>

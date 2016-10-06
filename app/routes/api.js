@@ -78,6 +78,7 @@ module.exports = function(app, express) {
 			user.name = req.body.name;
 			user.username = req.body.username;
 			user.password = req.body.password;
+			user.phoneNumber = req.body.phoneNumber;
 
 			user.save(function(err) {
 				if (err) {
@@ -126,6 +127,9 @@ module.exports = function(app, express) {
 				}
 				if (req.body.password) {
 					user.password = req.body.password;
+				}
+				if (req.body.phoneNumber) {
+					user.phoneNumber = req.body.phoneNumber;
 				}
 
 				user.save(function(err) {
