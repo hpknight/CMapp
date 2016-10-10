@@ -34,11 +34,6 @@ var apiRoutes = require('./app/routes/api.js')(app, express);
 app.use('/api', apiRoutes);
 // END api routes
 
-// BEGIN todo routes
-var todoRoutes = require('./app/routes/todo.js')(app, express);
-app.use('/todo', todoRoutes);
-// END todo routes
-
 // MAIN CATCHALL ROUTE
 // send users to frontends
 // has to be registered after api routes
