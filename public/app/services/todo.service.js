@@ -4,7 +4,12 @@ angular.module('todoService', [])
 
 		// get a single todo
 		todo.get = function(id) {
-			return $http.get('/api/users/' + id);
+			// return $http.get('/api/todo/' + id);
+			return $http({
+				url: '/api/todo/',
+				params: {userId: id},
+				method: 'GET'
+			});
 		};
 
 		// get all todos

@@ -40,7 +40,7 @@ angular.module('userCtrl', ['userService'])
 				});
 		};
 	})
-	.controller('userEditController', function($routeParams, User) {
+	.controller('userEditController', function($routeParams, User, Todo) {
 		var vm = this;
 
 		vm.type = 'edit';
@@ -48,6 +48,11 @@ angular.module('userCtrl', ['userService'])
 		User.get($routeParams.user_id)
 			.success(function(data) {
 				vm.userData = data;
+			});
+
+		Todo.get($routeParams.user_id)
+			.success(function(data) {
+				vm.todoData = data;
 			});
 
 		vm.saveUser = function() {
