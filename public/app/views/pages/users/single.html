@@ -32,28 +32,30 @@
 		</div>
 	</div>
 
-	<h5>Todos</h5>
-	<table class="table table-bordered table-striped" ng-show="user.todoData">
-		<thead>
-			<tr>
-				<th>Title</th>
-				<th>Description</th>
-				<th>Created Date</th>
-				<th class="col-sm-2"></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="todo in user.todoData">
-				<td>{{ todo.title }}</td>
-				<td>{{ todo.description }}</td>
-				<td>{{ todo.createdDt }}</td>
-				<td class="col-sm-2">
-					<a href="/users/{{ todo._id }}" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-					<a href="#" ng-click="user.deleteTodo(todo._id)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<div ng-if="user.todoData.length">
+		<h5>Todos</h5>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Created Date</th>
+					<th class="col-sm-2"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="todo in user.todoData">
+					<td>{{ todo.title }}</td>
+					<td>{{ todo.description }}</td>
+					<td>{{ todo.createdDt }}</td>
+					<td class="col-sm-2">
+						<a href="/users/{{ todo._id }}" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+						<a href="#" ng-click="user.deleteTodo(todo._id)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-6">

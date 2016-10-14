@@ -15,7 +15,7 @@ module.exports = function(app, express) {
 			});
 		})
 		.get(function(req, res) {
-			Todo.find(function(err, todos) {
+			Todo.find(req.query, function(err, todos) {
 				if (err) {
 					res.send(err);
 				}
