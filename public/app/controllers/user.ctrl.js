@@ -50,10 +50,13 @@ angular.module('userCtrl', ['userService'])
 				vm.userData = data;
 			});
 
-		Todo.get($routeParams.user_id)
-			.success(function(data) {
-				vm.todoData = data;
-			});
+		vm.getTodos = function() {
+			Todo.get($routeParams.user_id)
+				.success(function(data) {
+					vm.todoData = data;
+				});
+		};
+		vm.getTodos();
 
 		vm.saveUser = function() {
 			vm.processing = true;
@@ -64,6 +67,19 @@ angular.module('userCtrl', ['userService'])
 					vm.processing = false;
 					vm.userData = {};
 					vm.message = data.message;
+				});
+		};
+
+		vm.addTodo = function() {
+			vm.processing = true;
+
+			vm.newTodo.userId = $routeParams.user_id;
+			// console.log(vm.newTodo);
+
+			Todo.create(vm.newTodo)
+				.success(function(data) {
+					vm.getTodos();
+					vm.newTodo = {};
 				});
 		};
 	});
