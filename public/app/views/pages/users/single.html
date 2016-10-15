@@ -66,7 +66,7 @@
 				<tr ng-repeat="todo in user.todoData">
 					<td>{{ todo.title }}</td>
 					<td>{{ todo.description }}</td>
-					<td>{{ todo.createdDt }}</td>
+					<td>{{ todo.createdDt | date:'medium' }}</td>
 					<td class="col-sm-2">
 						<a href="/users/{{ todo._id }}" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
 						<a href="#" ng-click="user.deleteTodo(todo._id)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
