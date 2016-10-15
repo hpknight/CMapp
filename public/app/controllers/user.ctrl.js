@@ -78,8 +78,19 @@ angular.module('userCtrl', ['userService'])
 
 			Todo.create(vm.newTodo)
 				.success(function(data) {
-					vm.getTodos();
+					vm.processing = false;
 					vm.newTodo = {};
+					vm.getTodos();
+				});
+		};
+
+		vm.deleteTodo = function(e) {
+			vm.processing = true;
+
+			Todo.delete(e)
+				.success(function(data) {
+					vm.processing = true;
+					vm.getTodos();
 				});
 		};
 	});
