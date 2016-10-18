@@ -1,6 +1,8 @@
 angular.module('mainCtrl', [])
 	.controller('mainController', function($rootScope, $location, Auth) {
 		var vm = this;
+		vm.forgotPw = false;
+		vm.pwChangeSuccess = null;
 
 		// get info if a person is logged in
 		vm.loggedIn = Auth.isLoggedIn();
@@ -49,6 +51,19 @@ angular.module('mainCtrl', [])
 
 			// to clear cache
 			window.location.reload(true);
+		};
+
+		vm.resetPw = function() {
+			vm.processing = true;
+
+			Auth.resetPw(vm.reset)
+				.success(function(data) {
+					vm.processing = false;
+					if (data.success) {
+						vm.pwChangeSuccess = data.message;
+						vm.forgotPw = false;
+					}
+				});
 		};
 	});
 

@@ -3,6 +3,10 @@ angular.module('authService', [])
 	.factory('Auth', function($http, $q, AuthToken) {
 		var auth = {};
 
+		auth.resetPw = function(reset) {
+			return $http.put('/user/forgot', reset);
+		};
+
 		// handle login
 		auth.login = function(username, password) {
 			return $http.post('/api/authenticate', {

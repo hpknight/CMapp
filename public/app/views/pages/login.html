@@ -1,5 +1,5 @@
 <div class="row col-sm-6 col-sm-offset-3">
-	<div class="jumbotron">
+	<div class="jumbotron" ng-if="!login.forgotPw">
 		<h1>Login</h1>
 
 		<form ng-submit="login.doLogin()">
@@ -16,9 +16,29 @@
 				{{ login.error }}
 			</div>
 
+			<a href="#" ng-click="login.forgotPw = true">Forgot Password</a>
 			<button type="submit" class="btn btn-block btn-primary">
 				<span ng-if="!login.processing">Login</span>
 				<span ng-if="login.processing" class="spinner"><span class="glyphicon glyphicon-repeat"></span></span>
+			</button>
+		</form>
+	</div>
+
+	<div class="jumbotron" ng-if="login.forgotPw">
+		<h1>Reset Password</h1>
+
+		<form ng-submit="login.resetPw()">
+			<div class="form-group">
+				<label>Username</label>
+				<input type="text" class="form-control" ng-model="login.reset.username">
+			</div>
+			<div class="form-group">
+				<label>New Password</label>
+				<input type="password" class="form-control" ng-model="login.reset.password">
+			</div>
+
+			<button type="submit" class="btn btn-block btn-primary">
+				<span>Change Password</span>
 			</button>
 		</form>
 	</div>

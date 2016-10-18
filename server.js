@@ -34,6 +34,12 @@ var apiRoutes = require('./app/routes/api.js')(app, express);
 app.use('/api', apiRoutes);
 // END api routes
 
+var pwRoute = require('./app/routes/api/forgot.api.js')(app, express);
+app.use('/user', pwRoute);
+// app.put('/user', function(req, res) {
+// 	res.send('need to reset password');
+// });
+
 // MAIN CATCHALL ROUTE
 // send users to frontends
 // has to be registered after api routes
