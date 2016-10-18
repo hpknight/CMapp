@@ -6,8 +6,6 @@ module.exports = function(app, express) {
 	var route = express.Router();
 
 	route.put('/forgot', function(req, res) {
-		console.log(req.body);
-		// res.send('need to reset password');
 		User.findOne({
 			username: req.body.username
 		}).select('name username password').exec(function(err, user) {
